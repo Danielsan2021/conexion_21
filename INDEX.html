@@ -1,0 +1,375 @@
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CONEXIÓN 21 — Eventos · Plurirreportajes · Emprendimientos · Innovación</title>
+  <meta name="description" content="CONEXIÓN 21 — Plataforma para promocionar eventos, plurirreportajes, emprendimientos sociales y tecnología e innovación." />
+
+  <!-- Tipografía -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --blue-bright: #0b6ef6;          /* azul muy llamativo */
+      --green-deep: #0b6b3a;          /* verde oscuro - sostenibilidad */
+      --brown-champ: #9a6b4f;         /* café / champang chic */
+      --emerald: #2aa36b;             /* esmeralda */
+      --muted: #666b78;
+      --bg: #ffffff;
+      --card: #fbfbfd;
+      --glass: rgba(255,255,255,0.7);
+      --radius: 16px;
+      --ff: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0; font-family:var(--ff); background:linear-gradient(180deg,#f8fbff 0%, #f6fff5 100%);
+      color:#0f1724; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      line-height:1.45; -webkit-text-size-adjust:100%;
+      background-color: #0b3a2a;
+    }
+
+    /* Top nav */
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;gap:20px;position:sticky;top:0;background:rgba(255,255,255,0.6);backdrop-filter: blur(6px);z-index:40;border-bottom:1px solid rgba(20,24,28,0.04)}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{display:inline-flex;align-items:center;gap:12px}
+    .logo svg{width:56px;height:56px}
+    .brand h1{font-size:18px;margin:0;font-weight:800;letter-spacing:0.3px}
+    .brand p{margin:0;font-size:12px;color:var(--muted)}
+
+    .menu{display:flex;gap:18px;align-items:center}
+    .menu a{color:inherit;text-decoration:none;padding:8px 12px;border-radius:10px;font-weight:600}
+    .menu a:hover{background:linear-gradient(90deg, rgba(11,110,246,0.08), rgba(42,163,107,0.06))}
+    .cta{background:linear-gradient(90deg,var(--blue-bright),var(--emerald));color:white;padding:9px 14px;border-radius:12px;font-weight:700}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:36px;padding:54px 6vw;align-items:center}
+    .hero-left h2{font-size:44px;margin:0 0 12px 0;line-height:1.02}
+    .hero-left p{color:var(--muted);margin:0 0 20px 0;font-size:16px}
+
+    .search-bar{display:flex;gap:8px;background:var(--card);padding:10px;border-radius:12px;box-shadow:0 6px 20px rgba(12,18,30,0.06)}
+    .search-bar input{border:0;outline:none;background:transparent;flex:1;padding:8px;font-size:15px}
+
+    .hero-right{background:linear-gradient(180deg, rgba(11,110,246,0.06), rgba(42,163,107,0.03));padding:18px;border-radius:16px}
+    .event-card{background:white;padding:16px;border-radius:12px;box-shadow:0 8px 28px rgba(9,18,28,0.06);display:flex;flex-direction:column;gap:10px}
+
+    /* Sections */
+    .container{padding:42px 6vw}
+    .grid{display:grid;gap:20px}
+    .three-cols{grid-template-columns:repeat(3,1fr)}
+
+    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 20px rgba(12,18,30,0.04)}
+    .card h3{margin:0 0 8px 0}
+    .tag{display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700}
+
+    /* Featured reportajes */
+    .reportajes{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+    .reportaje-main{background:white;padding:22px;border-radius:14px}
+    .reportaje-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+    /* Events list */
+    .events-list{display:grid;gap:12px}
+    .event-row{display:flex;align-items:center;gap:16px;padding:12px;border-radius:12px;background:linear-gradient(180deg,#fff,#fbfcff);border:1px solid rgba(10,10,10,0.03)}
+    .event-time{min-width:84px;text-align:center;font-weight:700;color:var(--blue-bright)}
+
+    /* Footer */
+    footer{padding:28px 6vw;background:linear-gradient(180deg,#061638 0%, #0b3a2a 100%);color:white;border-top-left-radius:32px;border-top-right-radius:32px;margin-top:40px}
+    footer .cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr;gap:18px}
+      .reportajes{grid-template-columns:1fr}
+      .three-cols{grid-template-columns:1fr}
+      .nav{padding:12px}
+      .menu{display:none}
+    }
+
+    /* Small interactions */
+    .pulse{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,var(--emerald),var(--blue-bright));color:white;font-weight:700}
+    .fade-up{animation:fadeUp .7s cubic-bezier(.2,.9,.2,1) both}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+    /* accessibility focus */
+    a:focus, button:focus, input:focus{outline:3px solid rgba(11,110,246,0.12);outline-offset:2px}
+
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="brand">
+      <div class="logo" aria-hidden="false">
+        <!-- Logo SVG profesional: "C21" mark + texto -->
+        <svg viewBox="0 0 120 120" role="img" aria-labelledby="logoTitle logoDesc">
+          <title id="logoTitle">Logotipo CONEXIÓN 21</title>
+          <desc id="logoDesc">Marca circular con C y 21 en estilo geométrico, paleta azul, esmeralda y champán.</desc>
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="#0b6ef6" />
+              <stop offset="1" stop-color="#2aa36b" />
+            </linearGradient>
+          </defs>
+          <circle cx="60" cy="60" r="54" fill="url(#g1)" opacity="0.95" />
+          <g fill="#fff" transform="translate(12,12)">
+            <path d="M18 18 C18 10 26 6 36 6 L64 6 C76 6 86 14 86 26 L86 64 C86 76 76 84 64 84 L36 84 C26 84 18 80 18 72" opacity="0.99"/>
+            <text x="14" y="66" font-family='Inter' font-weight="800" font-size="36">21</text>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <h1>CONEXIÓN 21</h1>
+        <p>Eventos · Plurirreportajes · Emprendimientos · Innovación</p>
+      </div>
+    </div>
+
+    <nav class="menu" aria-label="Menú principal">
+      <a href="#agenda">Agenda</a>
+      <a href="#reportajes">Plurirreportajes</a>
+      <a href="#emprendimientos">Emprendimientos</a>
+      <a href="#innovacion">Innovación</a>
+      <a href="#contacto" class="cta">Publicar</a>
+    </nav>
+
+    <button id="menuToggle" aria-label="Abrir menú" style="background:transparent;border:0;display:none">☰</button>
+  </header>
+
+  <main>
+    <section class="hero container" role="region" aria-label="Presentación">
+      <div class="hero-left fade-up">
+        <h2>Conecta, difunde y transforma — <span style="color:var(--emerald)">CONEXIÓN 21</span></h2>
+        <p>Promovemos eventos, plurirreportajes y emprendimientos sociales con un enfoque en sostenibilidad y tecnología. Descubre lo que está pasando cerca de ti y publica tus iniciativas.</p>
+
+        <div class="search-bar" role="search" aria-label="Buscar eventos, reportajes o emprendimientos">
+          <input id="searchInput" placeholder="Buscar: evento, ciudad, palabra clave..." aria-label="Buscar" />
+          <button id="searchBtn" class="pulse">Buscar</button>
+        </div>
+
+        <div style="margin-top:18px;display:flex;gap:10px;align-items:center">
+          <span class="tag" style="background:rgba(11,110,246,0.08);color:var(--blue-bright)">Eventos en vivo</span>
+          <span class="tag" style="background:rgba(42,163,107,0.08);color:var(--green-deep)">Iniciativas sostenibles</span>
+          <span class="tag" style="background:rgba(154,107,79,0.06);color:var(--brown-champ)">Plurirreportajes</span>
+        </div>
+
+      </div>
+
+      <aside class="hero-right fade-up" aria-label="Próximos eventos">
+        <h4 style="margin:0 0 8px 0">Próximos eventos</h4>
+        <div class="event-card" id="miniEvents">
+          <!-- Eventos dinámicos (rellenado por JS) -->
+        </div>
+      </aside>
+    </section>
+
+    <section id="reportajes" class="container">
+      <h3 style="margin-top:0">Plurirreportajes destacados</h3>
+      <div class="reportajes">
+        <article class="reportaje-main card">
+          <h4>La nueva economía social en América Latina</h4>
+          <p style="color:var(--muted)">Un reportaje a fondo sobre emprendimientos que integran tecnología y sostenibilidad.</p>
+          <div style="display:flex;gap:12px;margin-top:12px">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='180'%3E%3Crect width='100%25' height='100%25' fill='%23eef6f1'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%239aa6a2' font-family='Inter' font-size='18'%3EImagen representativa%3C/text%3E%3C/svg%3E" alt="Miniatura reportaje" style="width:48%;border-radius:10px;object-fit:cover"/>
+            <div>
+              <p style="color:var(--muted);">Investigaciones, entrevistas y análisis. Lee la versión completa y descarga materiales para tu aula o proyecto.</p>
+              <p style="margin-top:10px"><strong>Autor:</strong> Colectivo Conexión 21 • <strong>Duración:</strong> 18 min lectura</p>
+              <p style="margin:10px 0 0 0"><a href="#" style="text-decoration:none;color:var(--blue-bright);font-weight:700">Leer reportaje →</a></p>
+            </div>
+          </div>
+        </article>
+
+        <aside class="card" style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <strong>Micro-historias</strong>
+              <span style="font-size:12px;color:var(--muted)">5 min</span>
+            </div>
+            <p style="margin:0;color:var(--muted)">Retratos breves de emprendimientos locales que ya transforman comunidades.</p>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <strong>Investigación</strong>
+              <span style="font-size:12px;color:var(--muted)">20 min</span>
+            </div>
+            <p style="margin:0;color:var(--muted)">Datos y análisis sobre políticas que impulsan innovación social.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="agenda" class="container">
+      <h3>Agenda & Eventos</h3>
+      <div class="card" style="padding:14px">
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px">
+          <button class="tag" data-filter="all" style="background:#fff;border:1px solid rgba(10,10,10,0.04)">Todos</button>
+          <button class="tag" data-filter="evento" style="background:rgba(11,110,246,0.08);color:var(--blue-bright)">Eventos</button>
+          <button class="tag" data-filter="sostenible" style="background:rgba(42,163,107,0.08);color:var(--green-deep)">Sostenibilidad</button>
+          <button class="tag" data-filter="emprendimiento" style="background:rgba(154,107,79,0.06);color:var(--brown-champ)">Emprendimiento</button>
+          <button class="tag" data-filter="innovacion" style="background:rgba(42,163,107,0.06);color:var(--emerald)">Innovación</button>
+        </div>
+
+        <div class="events-list" id="eventsList" aria-live="polite">
+          <!-- Lista poblada por JS -->
+        </div>
+      </div>
+    </section>
+
+    <section id="emprendimientos" class="container three-cols">
+      <div class="card">
+        <h3>Emprendimientos sociales</h3>
+        <p style="color:var(--muted)">Destacamos proyectos con impacto social y modelos de negocio sostenibles.</p>
+        <ul style="margin-top:12px;color:var(--muted)">
+          <li><strong>Raíces Verdes</strong> — Agricultura urbana y formación.</li>
+          <li><strong>ReparaTEC</strong> — Reparación y reciclaje electrónico.</li>
+          <li><strong>Comunidad Digital</strong> — Alfabetización tecnológica.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Herramientas</h3>
+        <p style="color:var(--muted)">Recursos para crear, medir y escalar impacto.</p>
+      </div>
+
+      <div class="card">
+        <h3>Convocatorias</h3>
+        <p style="color:var(--muted)">Aplica a fondos, capacitaciones y mentorías.</p>
+      </div>
+    </section>
+
+    <section id="innovacion" class="container">
+      <h3>Tecnología & Innovación</h3>
+      <div class="grid three-cols" style="margin-top:12px">
+        <div class="card">
+          <h4>Proyectos IA éticos</h4>
+          <p style="color:var(--muted)">Buenas prácticas y estudios de caso.</p>
+        </div>
+        <div class="card">
+          <h4>Laboratorios ciudadanos</h4>
+          <p style="color:var(--muted)">Espacios colaborativos y prototipado.</p>
+        </div>
+        <div class="card">
+          <h4>Financiamiento</h4>
+          <p style="color:var(--muted)">Cómo conseguir inversión y subvenciones.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="container">
+      <h3>Publica tu evento o proyecto</h3>
+      <div class="card" style="display:flex;gap:18px;flex-wrap:wrap">
+        <form id="publishForm" style="flex:1;min-width:260px;display:flex;flex-direction:column;gap:10px">
+          <input name="nombre" placeholder="Nombre del evento/proyecto" required style="padding:10px;border-radius:10px;border:1px solid rgba(10,10,10,0.04)" />
+          <input name="contacto" placeholder="Correo o teléfono" style="padding:10px;border-radius:10px;border:1px solid rgba(10,10,10,0.04)" />
+          <textarea name="descripcion" placeholder="Descripción breve" rows="4" style="padding:10px;border-radius:10px;border:1px solid rgba(10,10,10,0.04)"></textarea>
+          <div style="display:flex;gap:8px">
+            <button type="submit" class="cta">Enviar</button>
+            <button type="reset" style="background:transparent;border:1px solid rgba(10,10,10,0.06);padding:10px;border-radius:10px">Limpiar</button>
+          </div>
+        </form>
+
+        <div style="flex:1;min-width:220px;color:var(--muted)">
+          <p>Si quieres que tu publicación llegue a más usuarios, selecciona la opción <em>Promocionar</em> tras el envío (servicio premium).</p>
+          <p><strong>Correo:</strong> contacto@conexion21.org • <strong>Tel:</strong> +593 9X XXX XXXX</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="cols">
+      <div>
+        <h3 style="margin:0 0 10px 0">CONEXIÓN 21</h3>
+        <p style="margin:0;color:rgba(255,255,255,0.85)">Plataforma para impulsar iniciativas con propósito. Síguenos en redes para más actualizaciones.</p>
+      </div>
+      <div>
+        <h4 style="margin:0 0 8px 0">Secciones</h4>
+        <ul style="list-style:none;padding:0;margin:0;color:rgba(255,255,255,0.9)">
+          <li><a href="#agenda" style="color:inherit;text-decoration:none">Agenda</a></li>
+          <li><a href="#reportajes" style="color:inherit;text-decoration:none">Reportajes</a></li>
+          <li><a href="#emprendimientos" style="color:inherit;text-decoration:none">Emprendimientos</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="margin:0 0 8px 0">Contacto</h4>
+        <p style="margin:0;color:rgba(255,255,255,0.9)">contacto@conexion21.org</p>
+      </div>
+    </div>
+
+    <div style="margin-top:18px;font-size:13px;color:rgba(255,255,255,0.8)">© CONEXIÓN 21 — Todos los derechos reservados • Diseño responsivo • Accesible</div>
+  </footer>
+
+  <script>
+    // Datos de ejemplo — en producción, reemplazar por API
+    const EVENTS = [
+      {id:1,title:'Foro Innovación Sostenible',date:'2025-09-12',time:'09:00',type:'evento',city:'Quito',desc:'Conferencias y talleres sobre soluciones verdes.'},
+      {id:2,title:'Mercado de Emprendimientos - Guayaquil',date:'2025-08-30',time:'11:00',type:'emprendimiento',city:'Guayaquil',desc:'Venta de productos locales con impacto social.'},
+      {id:3,title:'Hackathon Ciudadano',date:'2025-10-05',time:'08:00',type:'innovacion',city:'Cuenca',desc:'48 horas para prototipar soluciones urbanas.'},
+      {id:4,title:'Jornada de Reciclaje Comunitario',date:'2025-08-22',time:'10:00',type:'sostenible',city:'Quito',desc:'Puntos de recolección y talleres educativos.'},
+      {id:5,title:'Ciclo de Plurirreportajes',date:'2025-09-02',time:'18:00',type:'evento',city:'Online',desc:'Conversatorios con autores y periodistas.'}
+    ];
+
+    // Rellenar mini events
+    const mini = document.getElementById('miniEvents');
+    EVENTS.slice(0,3).forEach(ev=>{
+      const div = document.createElement('div');
+      div.innerHTML = `<div style="display:flex;align-items:center;gap:12px"><div style=\"width:54px;height:54px;border-radius:10px;background:linear-gradient(180deg,rgba(11,110,246,0.12),rgba(42,163,107,0.08));display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--blue-bright)\">${ev.time.split(':')[0]}h</div><div><strong>${ev.title}</strong><div style=\"color:var(--muted);font-size:13px\">${ev.city} • ${ev.date}</div></div></div>`;
+      mini.appendChild(div);
+    });
+
+    // Render events list
+    const eventsList = document.getElementById('eventsList');
+    function renderEvents(filter='all'){
+      eventsList.innerHTML='';
+      const list = EVENTS.filter(e=> filter==='all' ? true : e.type===filter);
+      if(list.length===0){ eventsList.innerHTML='<div class="card">No hay eventos para esta categoría.</div>'; return }
+      list.forEach(ev=>{
+        const r = document.createElement('div'); r.className='event-row';
+        r.innerHTML = `<div class="event-time">${new Date(ev.date).toLocaleDateString()}</div>
+          <div style="flex:1"><strong>${ev.title}</strong><div style="color:var(--muted);font-size:14px">${ev.city} — ${ev.time}<div style=\"margin-top:6px;color:var(--muted);font-size:13px\">${ev.desc}</div></div></div>
+          <div><button class=\"cta\">Inscribirse</button></div>`;
+        eventsList.appendChild(r);
+      });
+    }
+    renderEvents();
+
+    // Filter buttons
+    document.querySelectorAll('[data-filter]').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('[data-filter]').forEach(b=>b.style.opacity=0.6);
+        btn.style.opacity=1; renderEvents(btn.dataset.filter);
+      })
+    });
+
+    // Form submit (simulado)
+    document.getElementById('publishForm').addEventListener('submit',e=>{
+      e.preventDefault();
+      const data = new FormData(e.target);
+      const name = data.get('nombre');
+      alert('Gracias — tu publicación "'+name+'" ha sido recibida. Nos contactaremos para verificarla.');
+      e.target.reset();
+    });
+
+    // Search
+    document.getElementById('searchBtn').addEventListener('click',()=>{
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      if(!q) return renderEvents();
+      const results = EVENTS.filter(ev=> (ev.title+ev.city+ev.desc).toLowerCase().includes(q));
+      eventsList.innerHTML='';
+      if(results.length===0) { eventsList.innerHTML='<div class="card">No encontramos resultados.</div>'; return }
+      results.forEach(ev=>{
+        const r = document.createElement('div'); r.className='event-row';
+        r.innerHTML = `<div class="event-time">${new Date(ev.date).toLocaleDateString()}</div>
+          <div style="flex:1"><strong>${ev.title}</strong><div style="color:var(--muted);font-size:14px">${ev.city} — ${ev.time}<div style=\"margin-top:6px;color:var(--muted);font-size:13px\">${ev.desc}</div></div></div>
+          <div><button class=\"cta\">Inscribirse</button></div>`;
+        eventsList.appendChild(r);
+      });
+    });
+
+    // Small accessibility: keyboard submit on Enter in search
+    document.getElementById('searchInput').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); document.getElementById('searchBtn').click(); } });
+
+  </script>
+</body>
+</html>
